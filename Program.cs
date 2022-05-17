@@ -6,9 +6,9 @@ using OhMySandwich.models;
 Ingredient butter = new Ingredient("Beurre", UnitType.Gram);
 Ingredient ham = new Ingredient("Jambon", UnitType.Slice);
 Ingredient chicken = new Ingredient("Poulet", UnitType.Slice);
-Ingredient egg = new Ingredient("Oeufs", UnitType.None);
-Ingredient bread = new Ingredient("Pain", UnitType.None);
-Ingredient tomato = new Ingredient("Tomate", UnitType.None);
+Ingredient egg = new Ingredient("Oeufs", UnitType.SimpleUnit);
+Ingredient bread = new Ingredient("Pain", UnitType.SimpleUnit);
+Ingredient tomato = new Ingredient("Tomate", UnitType.SimpleUnit);
 Ingredient salad = new Ingredient("Salade", UnitType.Gram);
 Ingredient tuna = new Ingredient("Thon", UnitType.Gram);
 Ingredient mayonnaise = new Ingredient("Mayonnaise", UnitType.Gram);
@@ -49,6 +49,6 @@ Sandwich sandwich3 = new Sandwich(
     new Price("€", 4.5)
 );
 Console.OutputEncoding = System.Text.Encoding.UTF8;
-Console.WriteLine(sandwich1);
-Console.WriteLine(sandwich2);
+Console.WriteLine(sandwich1 + "\n");
+Console.WriteLine(sandwich2 + "\n");
 Console.WriteLine(sandwich3);

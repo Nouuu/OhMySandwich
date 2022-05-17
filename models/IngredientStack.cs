@@ -1,6 +1,12 @@
 ﻿namespace OhMySandwich.models;
 
 public readonly record struct IngredientStack(
-    Ingredient ingredient,
-    double count
-);
+    Ingredient Ingredient,
+    double Count
+)
+{
+    public override string ToString()
+    {
+        return $"{{Ingredient = {Ingredient}, Count = {Count} }}";
+    }
+};
