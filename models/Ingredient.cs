@@ -7,6 +7,6 @@ public readonly record struct Ingredient(
 {
     public override string ToString()
     {
-        return $"{{ Name = {Name}, UnitType = {UnitType.Value} }}";
+        return $"{UnitType.Value}{Name}";
     }
 };

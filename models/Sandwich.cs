@@ -10,7 +10,7 @@ public readonly record struct Sandwich(
     {
         return $"Sandwich {{ " +
                $"Name = {Name}, " +
-               $"Ingredients = [{String.Join(",", Ingredients)}], " +
+               $"Ingredients = [{String.Join(", ", Ingredients)}], " +
                $"Price = {Price} " +
                $"}}";
     }

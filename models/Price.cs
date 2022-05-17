@@ -7,6 +7,6 @@ public readonly record struct Price(
 {
     public override string ToString()
     {
-        return $"{{Currency = {Currency}, Value={Value}}}";
+        return $"{Value}{Currency}";
     }
 };

@@ -7,6 +7,6 @@ public readonly record struct IngredientStack(
 {
     public override string ToString()
     {
-        return $"{{Ingredient = {Ingredient}, Count = {Count} }}";
+        return $"{Count}{Ingredient}";
     }
 };
