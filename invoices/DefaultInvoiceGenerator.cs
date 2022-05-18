@@ -15,10 +15,8 @@ public class DefaultInvoiceGenerator : InvoiceGenerator
         for (var i = 0; i < sandwichs.Count; i++)
         {
             var currentSandwich = sandwichs[i];
-            sandwichDictionary.Add(
-                currentSandwich,
-                GetSandwichDictionaryIteration(sandwichDictionary.ContainsKey(currentSandwich), i)
-            );
+            sandwichDictionary[currentSandwich] =
+                GetSandwichDictionaryIteration(sandwichDictionary.ContainsKey(currentSandwich), i);
             AddTotal(currentSandwich.Price, priceDictionary);
         }
 
@@ -34,14 +32,12 @@ public class DefaultInvoiceGenerator : InvoiceGenerator
     {
         if (priceDictionary.ContainsKey(price.Currency))
         {
-            priceDictionary.Add(
-                price.Currency,
-                price with { Value = priceDictionary[price.Currency].Value + price.Value }
-            );
+            priceDictionary[price.Currency] =
+                price with { Value = priceDictionary[price.Currency].Value + price.Value };
         }
         else
         {
-            priceDictionary.Add(price.Currency, price);
+            priceDictionary[price.Currency] = price;
         }
     }
 }
