@@ -6,9 +6,9 @@ public class CliAdapter : Adapter
 {
     private Basket _basket;
 
-    public CliAdapter(Basket basket)
+    public CliAdapter()
     {
-        _basket = basket;
+        _basket = new Basket();
     }
 
     public void AcceptInteractions()
