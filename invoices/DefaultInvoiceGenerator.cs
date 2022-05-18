@@ -11,7 +11,7 @@ public class DefaultInvoiceGenerator : InvoiceGenerator
         var sandwichDictionary = new Dictionary<Sandwich, string>();
         var priceDictionary = new Dictionary<string, Price>();
         var sandwichs = basket.GetSandwichList();
-        
+
         for (var i = 0; i < sandwichs.Count; i++)
         {
             var currentSandwich = sandwichs[i];
@@ -30,12 +30,14 @@ public class DefaultInvoiceGenerator : InvoiceGenerator
         return alreadyExist ? $"+{_alpha[alphaIndex % _alpha.Length]}" : _alpha[alphaIndex % _alpha.Length].ToString();
     }
 
-    private void AddTotal(Price price, Dictionary<string, Price> priceDictionary)
+    private static void AddTotal(Price price, Dictionary<string, Price> priceDictionary)
     {
         if (priceDictionary.ContainsKey(price.Currency))
         {
-            priceDictionary.Add(price.Currency,
-                price with { Value = priceDictionary[price.Currency].Value + price.Value });
+            priceDictionary.Add(
+                price.Currency,
+                price with { Value = priceDictionary[price.Currency].Value + price.Value }
+            );
         }
         else
         {
