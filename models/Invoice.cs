@@ -2,5 +2,5 @@
 
 public readonly record struct Invoice(
     Dictionary<Sandwich, string> Sandwiches,
-    Price Price
+    Dictionary<string, Price> Prices
 );
