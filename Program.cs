@@ -1,19 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Collections;
+using System.Text;
 using OhMySandwich.models;
 
-Ingredient butter = new Ingredient("Beurre", UnitType.Gram);
-Ingredient ham = new Ingredient("Jambon", UnitType.Slice);
-Ingredient chicken = new Ingredient("Poulet", UnitType.Slice);
-Ingredient egg = new Ingredient("Oeufs", UnitType.SimpleUnit);
-Ingredient bread = new Ingredient("Pain", UnitType.SimpleUnit);
-Ingredient tomato = new Ingredient("Tomate", UnitType.SimpleUnit);
-Ingredient salad = new Ingredient("Salade", UnitType.Gram);
-Ingredient tuna = new Ingredient("Thon", UnitType.Gram);
-Ingredient mayonnaise = new Ingredient("Mayonnaise", UnitType.Gram);
+Console.OutputEncoding = Encoding.UTF8;
 
-Sandwich sandwich1 = new Sandwich(
+var butter = new Ingredient("Beurre", UnitType.Gram);
+var ham = new Ingredient("Jambon", UnitType.Slice);
+var chicken = new Ingredient("Poulet", UnitType.Slice);
+var egg = new Ingredient("Oeufs", UnitType.SimpleUnit);
+var bread = new Ingredient("Pain", UnitType.SimpleUnit);
+var tomato = new Ingredient("Tomate", UnitType.SimpleUnit);
+var salad = new Ingredient("Salade", UnitType.Gram);
+var tuna = new Ingredient("Thon", UnitType.Gram);
+var mayonnaise = new Ingredient("Mayonnaise", UnitType.Gram);
+
+var sandwich1 = new Sandwich(
     "Jambon beurre",
     new IngredientStack[]
     {
@@ -23,7 +25,7 @@ Sandwich sandwich1 = new Sandwich(
     },
     new Price("€", 3.5)
 );
-Sandwich sandwich2 = new Sandwich(
+var sandwich2 = new Sandwich(
     "Poulet crudités",
     new IngredientStack[]
     {
@@ -36,7 +38,7 @@ Sandwich sandwich2 = new Sandwich(
     },
     new Price("€", 5)
 );
-Sandwich sandwich3 = new Sandwich(
+var sandwich3 = new Sandwich(
     "Dieppois",
     new IngredientStack[]
     {
@@ -48,7 +50,14 @@ Sandwich sandwich3 = new Sandwich(
     },
     new Price("€", 4.5)
 );
-Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+var basket = new Basket();
+
+basket.AddSandwich(sandwich1);
+basket.AddSandwich(sandwich2);
+basket.AddSandwich(sandwich3);
+
 Console.WriteLine(sandwich1 + "\n");
 Console.WriteLine(sandwich2 + "\n");
-Console.WriteLine(sandwich3);
+Console.WriteLine(sandwich3 + "\n");
+Console.WriteLine(basket.GetBasketPrice());
