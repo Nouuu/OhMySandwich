@@ -18,19 +18,4 @@ public class Basket
     {
         return new List<Sandwich>(_sandwichList);
     }
-
-    public Invoice? GetInvoice()
-    {
-        return null;
-        
-        /*if (_sandwichList.Count == 0)
-        {
-            return new Price("", 0);
-        }
-
-        return new Price(
-            "€", // TODO: Get currency
-            _sandwichList.Sum(sandwich => sandwich.Price.Value)
-        );*/
-    }
 }
