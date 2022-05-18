@@ -13,7 +13,7 @@ public class ConsoleSandwichMarshaller : Marshaller<Sandwich>
 
     public string Serialize(Sandwich data)
     {
-        return data.Name + "\n" + String.Join("\n",
+        return data.Name + "\n\t" + String.Join("\n\t",
             data.Ingredients.Select(ingredientStack => _ingredientStackMarshaller.Serialize(ingredientStack)));
     }
 }
