@@ -19,8 +19,10 @@ public class Basket
         return new List<Sandwich>(_sandwichList);
     }
 
-    public Price GetBasketPrice()
+    public Invoice? GetInvoice()
     {
+        return null;
+        
         if (_sandwichList.Count == 0)
         {
             return new Price("", 0);

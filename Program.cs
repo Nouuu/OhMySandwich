@@ -60,4 +60,3 @@ basket.AddSandwich(sandwich3);
 Console.WriteLine(sandwich1 + "\n");
 Console.WriteLine(sandwich2 + "\n");
 Console.WriteLine(sandwich3 + "\n");
-Console.WriteLine(basket.GetBasketPrice());
