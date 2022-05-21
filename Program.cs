@@ -51,6 +51,23 @@ var sandwich3 = new Sandwich(
     new Price("€", 4.5)
 );
 
+var sandwich4 = new SandwitchBuilder()
+    .addIngredient(bread, 2)
+    .addIngredient(salad, 2)
+    .addIngredient(ham, 1)
+    .addIngredient(butter, 20)
+    .setName("croque monsieur")
+    .setPrice(7)
+    .getResult();
+
+var sandwich5 = new SandwitchBuilder()
+.addIngredient(new IngredientStack(bread, 3))
+.addIngredient(new IngredientStack(tomato, 2))
+.setName("low price")
+.setPrice(new Price("€", 2))
+.getResult();
+
+
 var basket = new Basket();
 
 basket.AddSandwich(sandwich1);
@@ -60,3 +77,5 @@ basket.AddSandwich(sandwich3);
 Console.WriteLine(sandwich1 + "\n");
 Console.WriteLine(sandwich2 + "\n");
 Console.WriteLine(sandwich3 + "\n");
+Console.WriteLine(sandwich4 + "\n");
+Console.WriteLine(sandwich5 + "\n");
