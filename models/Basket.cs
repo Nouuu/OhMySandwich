@@ -1,4 +1,4 @@
-﻿namespace OhMySandwich.models;
+namespace OhMySandwich.models;
 
 public class Basket
 {
