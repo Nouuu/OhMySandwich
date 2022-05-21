@@ -1,6 +1,8 @@
 using OhMySandwich.models;
 
-class SandwichBuilder
+namespace OhMySandwich;
+
+public class SandwichBuilder
 {
     private readonly string? name;
     private readonly Price? price;
@@ -20,13 +22,13 @@ class SandwichBuilder
         ingredients = ingredientStacks;
     }
 
-    public Sandwich GetResult()
+    public Sandwich GetSandwich()
     {
         if (name == null || price == null)
         {
             throw new InvalidOperationException();
         }
-    return new Sandwich(name, ingredients.ToArray(), price.Value);
+        return new Sandwich(name, ingredients.ToArray(), price.Value);
     }
 
     public SandwichBuilder SetName(string newName)
@@ -39,7 +41,7 @@ class SandwichBuilder
         var newIngredients = new List<IngredientStack>(ingredients) { ingredientStack };
         return new SandwichBuilder(name , price, newIngredients);
     }
-    public SandwichBuilder AddIngredient(Ingredient ingredient, int count)
+    public SandwichBuilder AddIngredient(Ingredient ingredient, double count)
     {
         var newIngredients = new List<IngredientStack>(ingredients) { new(ingredient, count) };
         return new SandwichBuilder(name , price, newIngredients);
@@ -50,7 +52,7 @@ class SandwichBuilder
         return new SandwichBuilder(name, price, ingredients);
     }
 
-    public SandwichBuilder SetPrice(int price)
+    public SandwichBuilder SetPrice(double price)
     {
         return new SandwichBuilder(name, new Price("€" ,price), ingredients);
     }
