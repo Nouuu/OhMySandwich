@@ -15,7 +15,7 @@ public class ConsoleInvoiceMarshaller : Marshaller<Invoice>
 
     public string Serialize(Invoice data)
     {
-        return $"{data.Sandwiches.Select(pair => $"{pair.Value} {_sandwichMarshaller.Serialize(pair.Key)}")}" +
+        return $"{String.Join("\n",data.Sandwiches.Select(pair => $"{pair.Value} {_sandwichMarshaller.Serialize(pair.Key)}"))}" +
                $"\nPrix total : {String.Join(", ", data.Prices.Values.Select(price => _priceMarshaller.Serialize(price)))}";
     }
 }
