@@ -1,4 +1,5 @@
-﻿using OhMySandwich.models;
+﻿using System.Text;
+using OhMySandwich.models;
 
 namespace OhMySandwich.invoices;
 
@@ -16,16 +17,19 @@ public class DefaultInvoiceGenerator : InvoiceGenerator
         {
             var currentSandwich = sandwichs[i];
             sandwichDictionary[currentSandwich] =
-                GetSandwichDictionaryIteration(sandwichDictionary.ContainsKey(currentSandwich), i);
+                GetSandwichDictionaryIteration(sandwichDictionary, currentSandwich, i);
             AddTotal(currentSandwich.Price, priceDictionary);
         }
 
         return new Invoice(sandwichDictionary, priceDictionary);
     }
 
-    private string GetSandwichDictionaryIteration(bool alreadyExist, int alphaIndex)
+    private string GetSandwichDictionaryIteration(Dictionary<Sandwich, string> sandwichDictionary,
+        Sandwich currentSandwich, int alphaIndex)
     {
-        return alreadyExist ? $"+{_alpha[alphaIndex % _alpha.Length]}" : _alpha[alphaIndex % _alpha.Length].ToString();
+        return sandwichDictionary.ContainsKey(currentSandwich)
+            ? $"{sandwichDictionary[currentSandwich]}+{_alpha[alphaIndex % _alpha.Length]}"
+            : _alpha[alphaIndex % _alpha.Length].ToString();
     }
 
     private static void AddTotal(Price price, Dictionary<string, Price> priceDictionary)
