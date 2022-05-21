@@ -4,8 +4,8 @@ namespace OhMySandwich.marshallers;
 
 public class ConsoleInvoiceMarshaller : Marshaller<Invoice>
 {
-    private Marshaller<Price> _priceMarshaller;
-    private Marshaller<Sandwich> _sandwichMarshaller;
+    private readonly Marshaller<Price> _priceMarshaller;
+    private readonly Marshaller<Sandwich> _sandwichMarshaller;
 
     public ConsoleInvoiceMarshaller(Marshaller<Price> priceMarshaller, Marshaller<Sandwich> sandwichMarshaller)
     {
@@ -15,6 +15,7 @@ public class ConsoleInvoiceMarshaller : Marshaller<Invoice>
 
     public string Serialize(Invoice data)
     {
-        return String.Join("\n",data.Sandwiches.Select(sandwich => _sandwichMarshaller.Serialize(sandwich))) + " : " + _priceMarshaller.Serialize(data.Price);
+        return $"{data.Sandwiches.Select(pair => $"{pair.Value} {_sandwichMarshaller.Serialize(pair.Key)}")}" +
+               $"\nPrix total : {String.Join(", ", data.Prices.Values.Select(price => _priceMarshaller.Serialize(price)))}";
     }
 }
