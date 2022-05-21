@@ -1,9 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Text;
+using OhMySandwich;
+using OhMySandwich.config;
 using OhMySandwich.models;
 
 Console.OutputEncoding = Encoding.UTF8;
+
+var context = new Context();
+
+var invoiceGenerator = context.GetInvoiceGenerator();
+var invoiceMarshaller = context.GetInvoiceMarshaller();
+var sandwichMarshaller = context.GetSandwichMarshaller();
 
 var butter = new Ingredient("Beurre", UnitType.Gram);
 var ham = new Ingredient("Jambon", UnitType.Slice);
@@ -15,57 +23,52 @@ var salad = new Ingredient("Salade", UnitType.Gram);
 var tuna = new Ingredient("Thon", UnitType.Gram);
 var mayonnaise = new Ingredient("Mayonnaise", UnitType.Gram);
 
-var sandwich1 = new Sandwich(
-    "Jambon beurre",
-    new IngredientStack[]
-    {
-        new(bread, 1),
-        new(ham, 1),
-        new(butter, 10),
-    },
-    new Price("€", 3.5)
-);
-var sandwich2 = new Sandwich(
-    "Poulet crudités",
-    new IngredientStack[]
-    {
-        new(bread, 1),
-        new(egg, 1),
-        new(tomato, 0.5),
-        new(chicken, 1),
-        new(mayonnaise, 10),
-        new(salad, 10)
-    },
-    new Price("€", 5)
-);
-var sandwich3 = new Sandwich(
-    "Dieppois",
-    new IngredientStack[]
-    {
-        new(bread, 1),
-        new(tuna, 50),
-        new(tomato, 0.5),
-        new(mayonnaise, 10),
-        new(salad, 10),
-    },
-    new Price("€", 4.5)
-);
+var sandwich1 = new SandwichBuilder()
+    .SetName("Jambon beurre")
+    .SetPrice(new Price("€", 3.5))
+    .AddIngredient(bread, 1)
+    .AddIngredient(ham, 1)
+    .AddIngredient(butter, 10)
+    .GetSandwich();
 
-var sandwich4 = new SandwitchBuilder()
-    .addIngredient(bread, 2)
-    .addIngredient(salad, 2)
-    .addIngredient(ham, 1)
-    .addIngredient(butter, 20)
-    .setName("croque monsieur")
-    .setPrice(7)
-    .getResult();
+var sandwich2 = new SandwichBuilder()
+    .SetName("Poulet crudités")
+    .SetPrice(new Price("€", 5))
+    .AddIngredient(bread, 1)
+    .AddIngredient(egg, 1)
+    .AddIngredient(tomato, 0.5)
+    .AddIngredient(chicken, 1)
+    .AddIngredient(mayonnaise, 10)
+    .AddIngredient(salad, 10)
+    .GetSandwich();
 
-var sandwich5 = new SandwitchBuilder()
-.addIngredient(new IngredientStack(bread, 3))
-.addIngredient(new IngredientStack(tomato, 2))
-.setName("low price")
-.setPrice(new Price("€", 2))
-.getResult();
+
+var sandwich3 = new SandwichBuilder()
+    .SetName("Dieppois")
+    .SetPrice(new Price("€", 4.5))
+    .AddIngredient(bread, 1)
+    .AddIngredient(tuna, 50)
+    .AddIngredient(tomato, 0.5)
+    .AddIngredient(mayonnaise, 10)
+    .AddIngredient(salad, 10)
+    .GetSandwich();
+
+
+var sandwich4 = new SandwichBuilder()
+    .SetName("croque monsieur")
+    .SetPrice(7)
+    .AddIngredient(bread, 2)
+    .AddIngredient(salad, 2)
+    .AddIngredient(ham, 1)
+    .AddIngredient(butter, 20)
+    .GetSandwich();
+
+var sandwich5 = new SandwichBuilder()
+    .SetName("low price")
+    .SetPrice(new Price("€", 2))
+    .AddIngredient(new IngredientStack(bread, 3))
+    .AddIngredient(new IngredientStack(tomato, 2))
+    .GetSandwich();
 
 
 var basket = new Basket();
@@ -73,9 +76,12 @@ var basket = new Basket();
 basket.AddSandwich(sandwich1);
 basket.AddSandwich(sandwich2);
 basket.AddSandwich(sandwich3);
+basket.AddSandwich(sandwich4);
+basket.AddSandwich(sandwich4);
+basket.AddSandwich(sandwich4);
+basket.AddSandwich(sandwich5);
+basket.AddSandwich(sandwich1);
 
-Console.WriteLine(sandwich1 + "\n");
-Console.WriteLine(sandwich2 + "\n");
-Console.WriteLine(sandwich3 + "\n");
-Console.WriteLine(sandwich4 + "\n");
-Console.WriteLine(sandwich5 + "\n");
+var invoice = invoiceGenerator.GenerateInvoice(basket);
+
+Console.WriteLine(invoiceMarshaller.Serialize(invoice));
