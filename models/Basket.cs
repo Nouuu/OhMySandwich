@@ -23,7 +23,7 @@ public class Basket
     {
         return null;
         
-        if (_sandwichList.Count == 0)
+        /*if (_sandwichList.Count == 0)
         {
             return new Price("", 0);
         }
@@ -31,6 +31,6 @@ public class Basket
         return new Price(
             "€", // TODO: Get currency
             _sandwichList.Sum(sandwich => sandwich.Price.Value)
-        );
+        );*/
     }
 }
