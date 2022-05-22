@@ -1,6 +1,6 @@
 ﻿namespace OhMySandwich.models;
 
 public readonly record struct Invoice(
-    List<Sandwich> Sandwiches,
-    Price Price
+    Dictionary<Sandwich, string> Sandwiches,
+    Dictionary<string, Price> Prices
 );

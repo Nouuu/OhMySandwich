@@ -4,8 +4,8 @@ namespace OhMySandwich.marshallers;
 
 public class ConsoleInvoiceMarshaller : Marshaller<Invoice>
 {
-    private Marshaller<Price> _priceMarshaller;
-    private Marshaller<Sandwich> _sandwichMarshaller;
+    private readonly Marshaller<Price> _priceMarshaller;
+    private readonly Marshaller<Sandwich> _sandwichMarshaller;
 
     public ConsoleInvoiceMarshaller(Marshaller<Price> priceMarshaller, Marshaller<Sandwich> sandwichMarshaller)
     {
