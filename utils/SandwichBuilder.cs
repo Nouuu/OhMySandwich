@@ -10,8 +10,6 @@ public class SandwichBuilder
 
     public SandwichBuilder()
     {
-        _name = null;
-        _price = null;
         _ingredients = new List<IngredientStack>();
     }
     
