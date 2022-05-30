@@ -3,13 +3,13 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.ui.cli;
 
-public class Menu : Command
+public class MenuCommand : Command
 {
     private readonly List<Command> _commands;
     private readonly Basket _basket;
     private readonly Marshaller<Basket> _basketMarshaller;
 
-    public Menu(List<Command> commands, Basket basket, Marshaller<Basket> basketMarshaller)
+    public MenuCommand(List<Command> commands, Basket basket, Marshaller<Basket> basketMarshaller)
     {
         _commands = commands;
         _basket = basket;
@@ -20,13 +20,13 @@ public class Menu : Command
     {
         DisplayCurrentBasket();
         DisplayCommandList();
-        
+
         var input = 0;
         while (!int.TryParse(Console.ReadLine(), out input) || input >= _commands.Count)
         {
             Console.WriteLine("Wrong input, try again");
         }
-
+        Console.Clear();
         ExecuteAction(input);
         return this;
     }
@@ -49,10 +49,10 @@ public class Menu : Command
 
     private void DisplayCurrentBasket()
     {
-        Console.WriteLine("Current basket : ");
+        Console.Write("Current basket : ");
         Console.WriteLine(_basketMarshaller.Serialize(_basket));
     }
-    
+
     private void DisplayCommandList()
     {
         Console.WriteLine("Available commands : ");
@@ -60,5 +60,6 @@ public class Menu : Command
         {
             Console.WriteLine($"{i} : {_commands[i].GetCommandHelp()}");
         }
+        Console.WriteLine();
     }
 }
