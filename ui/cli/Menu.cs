@@ -2,22 +2,21 @@ namespace OhMySandwich.ui.cli;
 
 public abstract class Menu
 {
-    private List<Command> _commands;
-    private string message;
+    private readonly List<Command> _commands;
+    private readonly string _message;
 
     protected Menu(List<Command> commands, string message)
     {
         _commands = commands;
-        this.message = message;
+        this._message = message;
     }
 
-    public void display()
+    public void Display()
     {
-        Console.WriteLine(message);
-        
+        Console.WriteLine(_message);
     }
 
-    public Menu executeAction(int index)
+    public Menu? ExecuteAction(int index)
     {
         return _commands[index].Execute();
     }
