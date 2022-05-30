@@ -1,6 +1,13 @@
-namespace OhMySandwich.ui.cli;
+using OhMySandwich.ui.cli;
+
+namespace OhMySandwich.ui;
 
 public interface Command
 {
-    Menu Execute();
+    Command? Execute();
+    
+    string GetCommandHelp();
+
+    void Display();
+    
 }
