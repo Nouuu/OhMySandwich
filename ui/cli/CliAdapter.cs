@@ -1,30 +1,22 @@
-using OhMySandwich.models;
-
 namespace OhMySandwich.ui.cli;
 
 public class CliAdapter : Adapter
 {
-    private Basket _basket;
+    private readonly Command _startCommands;
 
-    public CliAdapter()
+    public CliAdapter(Command startCommand)
     {
-        _basket = new Basket();
+        _startCommands = startCommand;
     }
 
     public void AcceptInteractions()
     {
-        Menu? nextMenu = null;
-        while (nextMenu != null)
-        {
-            nextMenu.Display();
-            // read console input and parse it to int, retry while wrong input
-            var input = 0;
-            while (!int.TryParse(Console.ReadLine(), out input))
-            {
-                Console.WriteLine("Wrong input, try again");
-            }
+        var command = _startCommands;
+        command.Display();
 
-            nextMenu = nextMenu.ExecuteAction(input);
+        while (command != null)
+        {
+            command = command.Execute();
         }
     }
 }
