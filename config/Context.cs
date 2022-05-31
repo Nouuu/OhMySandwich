@@ -12,18 +12,18 @@ public class Context
     private InvoiceGenerator? _singletonInvoiceGenerator;
 
     // * Marshallers
-    private Marshaller<IngredientStack>? _singletonIngredientMarshaller;
-    private Marshaller<Invoice>? _singletonInvoiceMarshaller;
-    private Marshaller<Price>? _singletonPriceMarshaller;
-    private Marshaller<Sandwich>? _singletonSandwichMarshaller;
-    private Marshaller<Basket>? _singletonBasketMarshaller;
+    private IMarshaller<IngredientStack>? _singletonIngredientMarshaller;
+    private IMarshaller<Invoice>? _singletonInvoiceMarshaller;
+    private IMarshaller<Price>? _singletonPriceMarshaller;
+    private IMarshaller<Sandwich>? _singletonSandwichMarshaller;
+    private IMarshaller<Basket>? _singletonBasketMarshaller;
 
     // * UI
-    private Adapter? _singletonAdapter;
+    private IAdapter? _singletonAdapter;
 
     // * Basket
     private Basket? _basket;
-    private List<Command>? _availableCommands;
+    private List<ICommand>? _availableCommands;
     private List<Sandwich>? _availableSandwiches;
 
     private readonly Ingredient _butter = new Ingredient("Beurre", UnitType.Gram);
@@ -42,29 +42,29 @@ public class Context
         return _singletonInvoiceGenerator ??= new DefaultInvoiceGenerator();
     }
 
-    public Marshaller<IngredientStack> GetIngredientMarshaller()
+    public IMarshaller<IngredientStack> GetIngredientMarshaller()
     {
         return _singletonIngredientMarshaller ??= new ConsoleIngredientMarshaller();
     }
 
     // return invoice marshaller using the other marshaller methods for needed dependencies
-    public Marshaller<Invoice> GetInvoiceMarshaller()
+    public IMarshaller<Invoice> GetInvoiceMarshaller()
     {
         return _singletonInvoiceMarshaller ??=
             new ConsoleInvoiceMarshaller(GetPriceMarshaller(), GetSandwichMarshaller());
     }
 
-    public Marshaller<Price> GetPriceMarshaller()
+    public IMarshaller<Price> GetPriceMarshaller()
     {
         return _singletonPriceMarshaller ??= new ConsolePriceMarshaller();
     }
 
-    public Marshaller<Sandwich> GetSandwichMarshaller()
+    public IMarshaller<Sandwich> GetSandwichMarshaller()
     {
         return _singletonSandwichMarshaller ??= new ConsoleSandwichMarshaller(GetIngredientMarshaller());
     }
 
-    public Marshaller<Basket> GetBasketMarshaller()
+    public IMarshaller<Basket> GetBasketMarshaller()
     {
         return _singletonBasketMarshaller ??= new ConsoleBasketMarshaller();
     }
@@ -74,9 +74,9 @@ public class Context
         return _basket ??= new Basket();
     }
 
-    public List<Command> GetAvailableCommands()
+    public List<ICommand> GetAvailableCommands()
     {
-        return _availableCommands ??= new List<Command>()
+        return _availableCommands ??= new List<ICommand>()
         {
             new NewOrderCommand(GetBasket()),
             new SandwichSelectorCommand(GetBasket(), GetPriceMarshaller(), GetSandwichMarshaller(), GetAvailableSandwichs()),
@@ -117,7 +117,7 @@ public class Context
         };
     }
 
-    public Adapter GetAdapter()
+    public IAdapter GetAdapter()
     {
         return _singletonAdapter ??= new CliAdapter(new MenuCommand(GetAvailableCommands(), GetBasket(), GetBasketMarshaller()));
     }

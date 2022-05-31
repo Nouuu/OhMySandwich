@@ -3,20 +3,20 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.ui.cli;
 
-public class MenuCommand : Command
+public class MenuCommand : ICommand
 {
-    private readonly List<Command> _commands;
+    private readonly List<ICommand> _commands;
     private readonly Basket _basket;
-    private readonly Marshaller<Basket> _basketMarshaller;
+    private readonly IMarshaller<Basket> _basketMarshaller;
 
-    public MenuCommand(List<Command> commands, Basket basket, Marshaller<Basket> basketMarshaller)
+    public MenuCommand(List<ICommand> commands, Basket basket, IMarshaller<Basket> basketMarshaller)
     {
         _commands = commands;
         _basket = basket;
         _basketMarshaller = basketMarshaller;
     }
 
-    public Command? Execute()
+    public ICommand? Execute()
     {
         DisplayCurrentBasket();
         DisplayCommandList();

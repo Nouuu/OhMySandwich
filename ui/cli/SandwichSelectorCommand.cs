@@ -3,15 +3,15 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.ui.cli;
 
-public class SandwichSelectorCommand : Command
+public class SandwichSelectorCommand : ICommand
 {
     private readonly Basket _basket;
-    private readonly Marshaller<Sandwich> _sandwichMarshaller;
-    private readonly Marshaller<Price> _priceMarshaller;
+    private readonly IMarshaller<Sandwich> _sandwichMarshaller;
+    private readonly IMarshaller<Price> _priceMarshaller;
     private readonly List<Sandwich> _sandwichList;
 
-    public SandwichSelectorCommand(Basket basket, Marshaller<Price> priceMarshaller,
-        Marshaller<Sandwich> sandwichMarshaller, List<Sandwich> sandwichList)
+    public SandwichSelectorCommand(Basket basket, IMarshaller<Price> priceMarshaller,
+        IMarshaller<Sandwich> sandwichMarshaller, List<Sandwich> sandwichList)
     {
         _basket = basket;
         _sandwichMarshaller = sandwichMarshaller;
@@ -19,7 +19,7 @@ public class SandwichSelectorCommand : Command
         _sandwichList = sandwichList;
     }
 
-    public Command? Execute()
+    public ICommand? Execute()
     {
         DisplaySandwichList();
 

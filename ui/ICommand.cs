@@ -2,9 +2,9 @@ using OhMySandwich.ui.cli;
 
 namespace OhMySandwich.ui;
 
-public interface Command
+public interface ICommand
 {
-    Command? Execute();
+    ICommand? Execute();
     
     string GetCommandHelp();
 

@@ -2,7 +2,7 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.marshallers;
 
-public class ConsoleIngredientMarshaller : Marshaller<IngredientStack>
+public class ConsoleIngredientMarshaller : IMarshaller<IngredientStack>
 {
     public string Serialize(IngredientStack data)
     {

@@ -1,19 +1,20 @@
 using OhMySandwich.models;
+using static System.String;
 
 namespace OhMySandwich.marshallers;
 
-public class ConsoleSandwichMarshaller : Marshaller<Sandwich>
+public class ConsoleSandwichMarshaller : IMarshaller<Sandwich>
 {
-    private Marshaller<IngredientStack> _ingredientStackMarshaller;
+    private readonly IMarshaller<IngredientStack> _ingredientStackMarshaller;
 
-    public ConsoleSandwichMarshaller(Marshaller<IngredientStack> ingredientStackMarshaller)
+    public ConsoleSandwichMarshaller(IMarshaller<IngredientStack> ingredientStackMarshaller)
     {
         _ingredientStackMarshaller = ingredientStackMarshaller;
     }
 
     public string Serialize(Sandwich data)
     {
-        return data.Name + "\n   " + String.Join("\n   ",
+        return data.Name + "\n   " + Join("\n   ",
             data.Ingredients.Select(ingredientStack => _ingredientStackMarshaller.Serialize(ingredientStack)));
     }
 }

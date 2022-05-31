@@ -2,7 +2,7 @@
 
 namespace OhMySandwich.ui.cli;
 
-public class NewOrderCommand : Command
+public class NewOrderCommand : ICommand
 {
     private readonly Basket _basket;
 
@@ -11,7 +11,7 @@ public class NewOrderCommand : Command
         _basket = basket;
     }
 
-    public Command? Execute()
+    public ICommand? Execute()
     {
         _basket.Reset();
         return null;

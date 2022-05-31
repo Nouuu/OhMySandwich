@@ -2,12 +2,12 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.marshallers;
 
-public class ConsoleInvoiceMarshaller : Marshaller<Invoice>
+public class ConsoleInvoiceMarshaller : IMarshaller<Invoice>
 {
-    private readonly Marshaller<Price> _priceMarshaller;
-    private readonly Marshaller<Sandwich> _sandwichMarshaller;
+    private readonly IMarshaller<Price> _priceMarshaller;
+    private readonly IMarshaller<Sandwich> _sandwichMarshaller;
 
-    public ConsoleInvoiceMarshaller(Marshaller<Price> priceMarshaller, Marshaller<Sandwich> sandwichMarshaller)
+    public ConsoleInvoiceMarshaller(IMarshaller<Price> priceMarshaller, IMarshaller<Sandwich> sandwichMarshaller)
     {
         _priceMarshaller = priceMarshaller;
         _sandwichMarshaller = sandwichMarshaller;

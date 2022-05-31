@@ -4,14 +4,14 @@ using OhMySandwich.models;
 
 namespace OhMySandwich.ui.cli;
 
-public class InvoiceGeneratorCommand : Command
+public class InvoiceGeneratorCommand : ICommand
 {
     private readonly Basket _basket;
-    private readonly Marshaller<Invoice> _invoiceMarshaller;
+    private readonly IMarshaller<Invoice> _invoiceMarshaller;
     private readonly InvoiceGenerator _invoiceGenerator;
 
     public InvoiceGeneratorCommand(Basket basket, InvoiceGenerator invoiceGenerator,
-        Marshaller<Invoice> invoiceMarshaller)
+        IMarshaller<Invoice> invoiceMarshaller)
     {
         _basket = basket;
 
@@ -19,7 +19,7 @@ public class InvoiceGeneratorCommand : Command
         _invoiceMarshaller = invoiceMarshaller;
     }
 
-    public Command? Execute()
+    public ICommand? Execute()
     {
         var invoice = _invoiceGenerator.GenerateInvoice(_basket);
         Console.WriteLine(

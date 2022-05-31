@@ -1,6 +1,6 @@
 namespace OhMySandwich.ui;
 
-public interface Adapter
+public interface IAdapter
 {
     void AcceptInteractions();
 }

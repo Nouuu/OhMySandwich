@@ -1,10 +1,10 @@
 namespace OhMySandwich.ui.cli;
 
-public class CliAdapter : Adapter
+public class CliAdapter : IAdapter
 {
-    private readonly Command _startCommands;
+    private readonly ICommand _startCommands;
 
-    public CliAdapter(Command startCommand)
+    public CliAdapter(ICommand startCommand)
     {
         _startCommands = startCommand;
     }

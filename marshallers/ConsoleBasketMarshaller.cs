@@ -3,7 +3,7 @@ using static System.String;
 
 namespace OhMySandwich.marshallers;
 
-public class ConsoleBasketMarshaller : Marshaller<Basket>
+public class ConsoleBasketMarshaller : IMarshaller<Basket>
 {
     public string Serialize(Basket data)
     {
