@@ -22,8 +22,10 @@ public class InvoiceGeneratorCommand : Command
     public Command? Execute()
     {
         var invoice = _invoiceGenerator.GenerateInvoice(_basket);
-        Console.WriteLine(_invoiceMarshaller.Serialize(invoice) +
-                          "\n--------------------------------------");
+        Console.WriteLine(
+            _invoiceMarshaller.Serialize(invoice) +
+            "\n--------------------------------------"
+        );
         return null;
     }
 
@@ -34,7 +36,9 @@ public class InvoiceGeneratorCommand : Command
 
     public void Display()
     {
-        Console.WriteLine("Generating invoice..." +
-                          "\n--------------------------------------");
+        Console.WriteLine(
+            "Generating invoice..." +
+            "\n--------------------------------------"
+        );
     }
 }

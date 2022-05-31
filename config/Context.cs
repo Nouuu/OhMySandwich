@@ -22,9 +22,9 @@ public class Context
     private Adapter? _singletonAdapter;
 
     // * Basket
-    private Basket? _singletonBasket;
-    private List<Command>? _singletonCommands;
-    private List<Sandwich>? _singletonSandwiches;
+    private Basket? _basket;
+    private List<Command>? _availableCommands;
+    private List<Sandwich>? _availableSandwiches;
 
     private readonly Ingredient _butter = new Ingredient("Beurre", UnitType.Gram);
     private readonly Ingredient _ham = new Ingredient("Jambon", UnitType.Slice);
@@ -71,22 +71,22 @@ public class Context
 
     public Basket GetBasket()
     {
-        return _singletonBasket ??= new Basket();
+        return _basket ??= new Basket();
     }
 
-    public List<Command> GetCommands()
+    public List<Command> GetAvailableCommands()
     {
-        return _singletonCommands ??= new List<Command>()
+        return _availableCommands ??= new List<Command>()
         {
             new NewOrderCommand(GetBasket()),
-            new SandwichSelectorCommand(GetBasket(), GetPriceMarshaller(), GetSandwichMarshaller(), GetSandwichs()),
+            new SandwichSelectorCommand(GetBasket(), GetPriceMarshaller(), GetSandwichMarshaller(), GetAvailableSandwichs()),
             new InvoiceGeneratorCommand(GetBasket(), GetInvoiceGenerator(), GetInvoiceMarshaller()),
         };
     }
 
-    public List<Sandwich> GetSandwichs()
+    public List<Sandwich> GetAvailableSandwichs()
     {
-        return _singletonSandwiches ??= new List<Sandwich>
+        return _availableSandwiches ??= new List<Sandwich>
         {
             new SandwichBuilder()
                 .SetName("Jambon beurre")
@@ -119,6 +119,6 @@ public class Context
 
     public Adapter GetAdapter()
     {
-        return _singletonAdapter ??= new CliAdapter(new MenuCommand(GetCommands(), GetBasket(), GetBasketMarshaller()));
+        return _singletonAdapter ??= new CliAdapter(new MenuCommand(GetAvailableCommands(), GetBasket(), GetBasketMarshaller()));
     }
 }

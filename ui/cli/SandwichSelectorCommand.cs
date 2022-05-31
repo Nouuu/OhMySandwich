@@ -51,7 +51,8 @@ public class SandwichSelectorCommand : Command
             var sandwich = _sandwichList[i];
             Console.WriteLine(
                 $"{i} : {_sandwichMarshaller.Serialize(sandwich)}\n" +
-                $"Price : {_priceMarshaller.Serialize(sandwich.Price)}");
+                $"Price : {_priceMarshaller.Serialize(sandwich.Price)}"
+            );
         }
     }
 }
