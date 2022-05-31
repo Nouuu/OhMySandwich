@@ -1,24 +1,22 @@
-using OhMySandwich.models;
-
 namespace OhMySandwich.ui.cli;
 
 public class CliAdapter : Adapter
 {
-    private Basket _basket;
+    private readonly Command _startCommands;
 
-    public CliAdapter()
+    public CliAdapter(Command startCommand)
     {
-        _basket = new Basket();
+        _startCommands = startCommand;
     }
 
     public void AcceptInteractions()
     {
-        Menu nextMenu = null;
-        while (nextMenu != null)
+        var command = _startCommands;
+        command.Display();
+
+        while (command != null)
         {
-            nextMenu.display();
-            // TODO read user input
-            nextMenu = nextMenu.executeAction(0);
+            command = command.Execute();
         }
     }
 }

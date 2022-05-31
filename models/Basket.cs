@@ -18,4 +18,9 @@ public class Basket
     {
         return new List<Sandwich>(_sandwichList);
     }
+
+    public void Reset()
+    {
+        _sandwichList.Clear();
+    }
 }
