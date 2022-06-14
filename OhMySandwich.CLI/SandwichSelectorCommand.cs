@@ -25,9 +25,9 @@ public class SandwichSelectorCommand : ICommand
         DisplaySandwichList();
 
         var input = 0;
-        while (!int.TryParse(Console.ReadLine(), out input) || input >= _sandwichList.Count)
+        while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out input) || input >= _sandwichList.Count)
         {
-            Console.WriteLine("Wrong input, try again");
+            Console.WriteLine("\nWrong input, try again");
         }
 
         _basket.AddSandwich(_sandwichList[input]);

@@ -23,9 +23,9 @@ public class MenuCommand : ICommand
         DisplayCommandList();
 
         var input = 0;
-        while (!int.TryParse(Console.ReadLine(), out input) || input >= _commands.Count)
+        while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out input) || input >= _commands.Count)
         {
-            Console.WriteLine("Wrong input, try again");
+            Console.WriteLine("\nWrong input, try again");
         }
 
         Console.Clear();
@@ -62,7 +62,5 @@ public class MenuCommand : ICommand
         {
             Console.WriteLine($"{i} : {_commands[i].GetCommandHelp()}");
         }
-
-        Console.WriteLine();
     }
 }
