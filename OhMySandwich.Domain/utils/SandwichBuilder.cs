@@ -57,7 +57,7 @@ public class SandwichBuilder
         return new SandwichBuilder(_name, new Price("€", price), _ingredients);
     }
     
-    public SandwichBuilder fromSandwich(Sandwich sandwich)
+    public SandwichBuilder FromSandwich(Sandwich sandwich)
     {
         return new SandwichBuilder(
             sandwich.Name,

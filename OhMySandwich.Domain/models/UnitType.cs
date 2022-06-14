@@ -1,15 +1,8 @@
 ﻿namespace OhMySandwich.Domain.models;
 
 
-public class UnitType
+public readonly record struct UnitType(String Value)
 {
-    private UnitType(string value)
-    {
-        Value = value;
-    }
-
-    public string Value { get; private set; }
-
     public static UnitType SimpleUnit
     {
         get { return new UnitType(" "); }
