@@ -1,4 +1,5 @@
 ﻿using OhMySandwich.CLI;
+using OhMySandwich.Domain.config;
 using OhMySandwich.Domain.invoices;
 using OhMySandwich.Domain.marshallers;
 using OhMySandwich.Domain.models;
@@ -9,7 +10,7 @@ using OhMySandwich.Infrastructure.marshallers;
 
 namespace OhMySandwich.Infrastructure.config;
 
-public class Context
+public class CliContext : Context
 {
     private InvoiceGenerator? _singletonInvoiceGenerator;
 

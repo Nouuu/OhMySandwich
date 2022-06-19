@@ -6,7 +6,7 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        var context = new Context();
+        var context = new CliContext();
         var adapter = context.GetAdapter();
 
         adapter.AcceptInteractions();
