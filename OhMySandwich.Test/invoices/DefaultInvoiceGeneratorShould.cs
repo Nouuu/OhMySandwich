@@ -2,6 +2,7 @@
 using OhMySandwich.Domain.models;
 using OhMySandwich.Domain.utils;
 using OhMySandwich.Infrastructure.invoices;
+using OhMySandwich.Infrastructure.utils;
 
 namespace OhMySandwich.Test.invoices;
 
@@ -24,7 +25,7 @@ public class DefaultInvoiceGeneratorShould
 
     private readonly Basket _basket = new Basket();
 
-    private readonly InvoiceGenerator _invoiceGenerator = new DefaultInvoiceGenerator();
+    private readonly InvoiceGenerator _invoiceGenerator = new DefaultInvoiceGenerator(new AlphabetIterator());
 
     public DefaultInvoiceGeneratorShould()
     {
