@@ -1,4 +1,5 @@
 ﻿using OhMySandwich.CLI;
+using OhMySandwich.Domain.config;
 using OhMySandwich.Domain.invoices;
 using OhMySandwich.Domain.marshallers;
 using OhMySandwich.Domain.models;
@@ -6,10 +7,11 @@ using OhMySandwich.Domain.ui;
 using OhMySandwich.Domain.utils;
 using OhMySandwich.Infrastructure.invoices;
 using OhMySandwich.Infrastructure.marshallers;
+using OhMySandwich.Infrastructure.utils;
 
 namespace OhMySandwich.Infrastructure.config;
 
-public class Context
+public class CliContext : Context
 {
     private InvoiceGenerator? _singletonInvoiceGenerator;
 
@@ -38,10 +40,13 @@ public class Context
     private readonly Ingredient _tuna = new Ingredient("Thon", UnitType.Gram);
     private readonly Ingredient _mayonnaise = new Ingredient("Mayonnaise", UnitType.Gram);
 
+    // * Utils
+    private Iterator<string>? _stringIterator;
+
 
     public InvoiceGenerator GetInvoiceGenerator()
     {
-        return _singletonInvoiceGenerator ??= new DefaultInvoiceGenerator();
+        return _singletonInvoiceGenerator ??= new DefaultInvoiceGenerator(GetStringIterator());
     }
 
     public IMarshaller<IngredientStack> GetIngredientMarshaller()
@@ -81,7 +86,8 @@ public class Context
         return _availableCommands ??= new List<ICommand>()
         {
             new NewOrderCommand(GetBasket()),
-            new SandwichSelectorCommand(GetBasket(), GetPriceMarshaller(), GetSandwichMarshaller(), GetAvailableSandwichs()),
+            new SandwichSelectorCommand(GetBasket(), GetPriceMarshaller(), GetSandwichMarshaller(),
+                GetAvailableSandwichs()),
             new InvoiceGeneratorCommand(GetBasket(), GetInvoiceGenerator(), GetInvoiceMarshaller()),
         };
     }
@@ -121,6 +127,12 @@ public class Context
 
     public IAdapter GetAdapter()
     {
-        return _singletonAdapter ??= new CliAdapter(new MenuCommand(GetAvailableCommands(), GetBasket(), GetBasketMarshaller()));
+        return _singletonAdapter ??=
+            new CliAdapter(new MenuCommand(GetAvailableCommands(), GetBasket(), GetBasketMarshaller()));
+    }
+
+    public Iterator<string> GetStringIterator()
+    {
+        return _stringIterator ??= new AlphabetIterator();
     }
 }

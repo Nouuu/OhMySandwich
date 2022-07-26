@@ -1,4 +1,5 @@
-﻿using OhMySandwich.Infrastructure.config;
+﻿using OhMySandwich.Domain.config;
+using OhMySandwich.Infrastructure.config;
 
 namespace OhMySandwich.Infrastructure;
 
@@ -6,7 +7,8 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        var context = new Context();
+        
+        Context context = new CliContext();
         var adapter = context.GetAdapter();
 
         adapter.AcceptInteractions();
