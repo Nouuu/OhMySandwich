@@ -146,9 +146,24 @@ public interface IAdapter
 }
 ```
 
+```csharp
+public interface IMarshaller<in T>
+{
+    public string Serialize(T data);
+}
+```
+
 **CLI**
 
 - CliAdapter
+
+**Infrastructure**
+
+- ConsoleBasketMarshaller
+- ConsoleIngredientMarshaller
+- ConsoleInvoiceMarshaller
+- ConsolePriceMarshaller
+- ConsoleSandwichMarshaller
 
 #### Facade + Singleton
 
@@ -268,3 +283,15 @@ public class SandwichBuilder
     }
 }
 ```
+
+#### Value Object
+
+**Domain**
+
+- Basket
+- Ingredient
+- IngredientStack
+- Invoice
+- Price
+- Sandwich
+- UnitType
