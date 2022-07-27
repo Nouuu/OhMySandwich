@@ -101,5 +101,170 @@ Vous devrez présenter une première fois votre implémentation ainsi que vos ch
 
 ### Solution & Projets
 
+Afin d'avoir une architecture propre, nous avons créé une solution contenant plusieurs projets.
+Ils sont au nombre de 4 :
+
+- **CLI** : Implémentation d'un Adaptateur de Commande en ligne de commande pour l'application.
+- **Domain** : Contient la partie métier, nos objets du domaine ainsi que nos interfaces
+- **Infrastructure** : Contient les objets techniques nécessaires à l'implémentation de l'application
+- **Test** : Contient les tests unitaires de l'application
+
+### Tests
+
+Nous avons créé un projet de tests unitaires afin de pouvoir nous assurer que notre code fonctionne correctement.
+
+Cela nous a aussi été utile au moment du refactoring de notre code pour ne pas faire de regression.
+
 ### Design Patterns
 
+#### Command
+
+```csharp
+public interface ICommand
+{
+    ICommand? Execute();
+
+    string GetCommandHelp();
+
+    void Display();
+}
+```
+
+**CLI**
+
+- InvoiceGeneratorCommand
+- MenuCommand
+- NewOrderCommand
+- SandwichSelectorComman
+
+#### Adapter
+
+```csharp
+public interface IAdapter
+{
+    void AcceptInteractions();
+}
+```
+
+**CLI**
+
+- CliAdapter
+
+#### Facade + Singleton
+
+```csharp
+public interface Context
+{
+    InvoiceGenerator GetInvoiceGenerator();
+    IMarshaller<IngredientStack> GetIngredientMarshaller();
+    IMarshaller<Invoice> GetInvoiceMarshaller();
+    IMarshaller<Price> GetPriceMarshaller();
+    IMarshaller<Sandwich> GetSandwichMarshaller();
+    IMarshaller<Basket> GetBasketMarshaller();
+    Basket GetBasket();
+    List<ICommand> GetAvailableCommands();
+    List<Sandwich> GetAvailableSandwichs();
+    IAdapter GetAdapter();
+}
+```
+
+**Infrastructure**
+
+- CliContext
+
+#### Factory
+
+```csharp
+public interface InvoiceGenerator
+{
+    Invoice GenerateInvoice(Basket basket);
+}
+```
+
+**Infrastructure**
+
+- DefaultInvoiceGenerator
+
+#### Iterator
+
+```csharp
+public interface Iterator<out T>
+{
+    T NextIteration();
+}
+```
+
+**Infrastructure**
+
+- AlphabetIterator
+
+#### Builder
+
+> SandwichBuilder
+
+```csharp
+public class SandwichBuilder
+{
+    private readonly string? _name;
+    private readonly Price? _price;
+    private readonly ISet<IngredientStack> _ingredients;
+
+    public SandwichBuilder()
+    {
+        _ingredients = new HashSet<IngredientStack>();
+    }
+
+    public SandwichBuilder(string? name, Price? price, ISet<IngredientStack> ingredientStacks)
+    {
+        this._name = name;
+        this._price = price;
+        _ingredients = ingredientStacks;
+    }
+
+    public Sandwich GetSandwich()
+    {
+        if (_name == null || _price == null)
+        {
+            throw new InvalidOperationException();
+        }
+
+        return new Sandwich(_name, _ingredients.ToArray(), _price.Value);
+    }
+
+    public SandwichBuilder SetName(string newName)
+    {
+        return new SandwichBuilder(newName, _price, _ingredients);
+    }
+
+    public SandwichBuilder AddIngredient(IngredientStack ingredientStack)
+    {
+        var newIngredients = new HashSet<IngredientStack>(_ingredients) { ingredientStack };
+        return new SandwichBuilder(_name, _price, newIngredients);
+    }
+
+    public SandwichBuilder AddIngredient(Ingredient ingredient, double count)
+    {
+        var newIngredients = new HashSet<IngredientStack>(_ingredients) { new(ingredient, count) };
+        return new SandwichBuilder(_name, _price, newIngredients);
+    }
+
+    public SandwichBuilder SetPrice(Price price)
+    {
+        return new SandwichBuilder(_name, price, _ingredients);
+    }
+
+    public SandwichBuilder SetPrice(double price)
+    {
+        return new SandwichBuilder(_name, new Price("€", price), _ingredients);
+    }
+    
+    public SandwichBuilder FromSandwich(Sandwich sandwich)
+    {
+        return new SandwichBuilder(
+            sandwich.Name,
+            sandwich.Price, 
+            new HashSet<IngredientStack>(sandwich.Ingredients)
+        );
+    }
+}
+```
